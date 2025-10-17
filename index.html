@@ -1,59 +1,76 @@
+<!-- index.html
+  I den här filen sätts sidans struktur och css-filen (style.css) kallas in/länkas
+  från head-sektionen för formatteringen. Javascript-filen (app.js) som skapar de
+  de interaktiva funktionerna "ropas in" sist bland alla html-element, längst ned i body.
+-->
 <!doctype html>
-<html class="no-js" lang="">
-
+<html lang="sv">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mor och Son</title>
-  <link rel="stylesheet" href="css/style_original.css">
-  <meta name="description" content="Vi är en väldigt litet och familjärt företag som skapar rätt ljudinnehåll för rätt kunder">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Klassföräldrar till 2 B</title>
 
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-  <meta property="og:image:alt" content="">
-
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="icon.png">
-
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#ffffff">
+  <!-- Här kallas css-filen in, innan sidans innehåll visas.
+   Webbläsaren kopplar CSS-filen med HTML-sidan via länken i link-taggen,
+   sen läser webbläsaren in stilarna/formatteringen och tillämpar dom.
+   -->
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-
 <body>
-  <!-- Add your site or application content here -->
-  <header>
-    <h1>Mor & Son</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html">Start</a></li>
-        <li><a href="om.html">Om Mor & Son</a></li>
-        <li><a href="kontakt.html">Kontakt</a></li>
-      </ul>
-    </nav>
-  </header>
+<header>
+  <h1>En sida för klassföräldrarna i 2b</h1>
+  <p class="tagline">Vi stöttar och stärker våra barn tillsammans</p>
+</header>
 
-  <main>
-    <h2>Vi skapar kärlek med ljud</h2>
-    <p>Melodi och känsla som fastnar.</p>
-  </main>
+<!-- Main-innehållet består av två lådor/sektioner med olika id:n:
+clock-section och quite-section där formatteringen i css-filen följer klassen "card"
+ -->
+<main>
+  <!-- lådan för klockan med hälsningsfrasen -->
+  <section id="clock-section" class="card">
+    <!-- en egen div där tiden visas och "aria-live" gör att skärmläsare uppdateras automatiskt när tiden ändras -->
+    <div id="time" aria-live="polite" class="time">--:--:--</div>
+    <!-- Hälsning som uppdateras utifrån vilken tid det är  -->
+    <div id="greeting" class="greeting">Hej!</div>
+  </section>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="contact-info">
-        <h4>Mor & Son AB</h4>
-        <p>Ringvägen 38A<br>118 67 Stockholm</p>
-        <p>kontakt@morochson.se<br>0737533004</p>
-      </div>
+  <!-- lådan där man kan slumpa klassföräldrar -->
+  <section id="slump-section" class="card">
+    <h2>Lotta klassföräldrar!</h2>
+
+    <!-- Här visas först en instruktion om att trycka på knappen för att slumpa
+    klassförälder, sedan byts den texten ut till senaste slumpade namnet -->
+    <p id="current-name" class="name">Klicka på knappen för att slumpa fram vilka som blir klassföräldrar. Totalt fyra barns föräldrar ska väljas:</p>
+
+    <!-- Knappar som formges genom div-klassen "controls"
+    och den genrella rot-formatteringen + knappformattering i css:en.
+    En knapp för att slumpa en förälder (new-name) och en knapp för
+    att rensa (clear-history) alla tidigare slumpade namn som dyker upp
+    under p-klassen current-name -->
+
+    <div class="controls">
+      <button id="new-name">Slumpa en förälder!</button>
+      <button id="clear-history">Rensa alla namn</button>
     </div>
-    <div class="footer-bottom">
-      <p>Mor & Son AB © 2025 &middot; Webbdesign av Josephiny</p>
-    </div>
-  </footer>
 
-  <script src="js/app.js"></script>
+    <h3>Slumpade klassföräldrar</h3>
+    <!-- Här skapas en lista som fylls på dynamiskt av js-koden. Även här
+     används aria-live för att meddela skärmläsaren när ett nytt namn slumpats
+     fram, exempelvis bra för synskadade men även av andra anledningar-->
+    <ul id="name-history" class="name-history" aria-live="polite"></ul>
+  </section>
+</main>
+
+<footer>
+  <p>Det här appen gjordes på initiativ av Josephine Bergenmar</p>
+</footer>
+
+<!-- Sist av alla html-elemtn kallas js-filen in för att inte blockera laddningen/
+renderingen av sidan. När js-scriptet sedan körs är DOM-trädet alltså klart vilket
+gör att javascript kan manipulera element direkt utan att behöva vänta på att
+dokumentet ska bli klart. -->
+
+<script src="js/app.js"></script>
 </body>
-
 </html>
